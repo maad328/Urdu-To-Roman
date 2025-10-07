@@ -170,11 +170,7 @@ The system follows a sequence-to-sequence architecture where Urdu text flows thr
 - **Total Parameters**: Approximately 39.9 million trainable parameters
 - **Vocabulary Sizes**: Urdu (51 characters), Roman-Urdu (32 characters)
 
-### Greedy Decoding
 
-The system uses greedy decoding for fast, deterministic translation:
-
-```python
 
 
 ## 📚 Dataset Information
