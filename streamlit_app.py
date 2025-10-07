@@ -35,12 +35,7 @@ body {
     margin-bottom: 2rem;
     box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 }
-.card {
-    background: #1a1a2e;
-    padding: 2rem;
-    border-radius: 20px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.4);
-}
+.
 .urdu-text {
     font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif;
     font-size: 1.2em;
@@ -86,7 +81,6 @@ def main():
     </div>
     """, unsafe_allow_html=True)
 
-    st.markdown('<div class="card">', unsafe_allow_html=True)
 
     input_text = st.text_area(
         "Enter Urdu Text",
@@ -114,30 +108,11 @@ def main():
     st.markdown('</div>', unsafe_allow_html=True)
 
     # Sidebar (Model info and reload)
-    with st.sidebar:
-        st.header("🧠 Model Info")
-        if st.session_state.model_loaded:
-            info = st.session_state.model_info
-            st.success("✅ Model Loaded")
-            if info:
-                st.write(f"**Architecture:** {info.get('model_architecture', 'N/A')}")
-                st.write(f"**Parameters:** {info.get('total_parameters', 0):,}")
-                st.write(f"**Device:** {info.get('device', 'N/A')}")
-        else:
-            if st.button("🚀 Load Model Again"):
-                try:
-                    load_model_and_tokenizers()
-                    st.session_state.model_loaded = True
-                    st.session_state.model_info = get_model_info()
-                    st.success("Model reloaded successfully!")
-                    st.rerun()
-                except Exception as e:
-                    st.error(f"Reload failed: {str(e)}")
+  
 
     st.markdown("""
     <hr style='margin-top:3rem;'>
     <div style="text-align:center; color:#eee;">
-        Built with ❤️ using Streamlit + PyTorch<br>
         <a href="https://github.com/maad328/Urdu-To-Roman" target="_blank" style="color:#00ffcc;">GitHub Repo</a>
     </div>
     """, unsafe_allow_html=True)
