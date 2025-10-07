@@ -173,7 +173,7 @@ The system follows a sequence-to-sequence architecture where Urdu text flows thr
 
 
 
-## 📚 Dataset Information
+##  Dataset Information
 
 The dataset contains Urdu ghazals from renowned poets including:
 
@@ -189,7 +189,7 @@ Each poet's collection includes:
 - Hindi transliteration
 - English transliteration (Roman-Urdu)
 
-## 🤝 Contributing
+##  Contributing
 
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feature/amazing-feature`)
@@ -197,11 +197,11 @@ Each poet's collection includes:
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
-## 📄 License
+##  License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 🙏 Acknowledgments
+##  Acknowledgments
 
 - **Rekhta Foundation** for providing access to Urdu poetry collections
 - **PyTorch Team** for the excellent deep learning framework
