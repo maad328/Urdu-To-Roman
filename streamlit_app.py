@@ -147,21 +147,6 @@ st.markdown("""
         line-height: 1.6;
     }
     
-    .loading-spinner {
-        display: inline-block;
-        width: 16px;
-        height: 16px;
-        border: 2px solid #ffffff40;
-        border-radius: 50%;
-        border-top-color: #ffffff;
-        animation: spin 1s ease-in-out infinite;
-        margin-right: 8px;
-    }
-    
-    @keyframes spin {
-        to { transform: rotate(360deg); }
-    }
-    
     .error-message {
         background: #fef2f2;
         border: 1px solid #fecaca;
@@ -182,29 +167,19 @@ st.markdown("""
         font-family: 'Inter', sans-serif;
     }
     
-    .model-status {
-        background: #f0f9ff;
-        border: 1px solid #bae6fd;
-        color: #0369a1;
-        padding: 1rem;
-        border-radius: 8px;
-        margin-bottom: 1rem;
-        font-family: 'Inter', sans-serif;
-        text-align: center;
-    }
-    
     .load-model-btn {
         font-family: 'Inter', sans-serif !important;
         font-weight: 600 !important;
-        font-size: 0.9rem !important;
+        font-size: 1rem !important;
         background: #10b981 !important;
         color: white !important;
         border: none !important;
         border-radius: 8px !important;
-        padding: 0.5rem 1rem !important;
+        padding: 0.75rem 2rem !important;
         cursor: pointer !important;
         transition: all 0.2s ease !important;
         width: 100% !important;
+        margin-bottom: 1rem;
     }
     
     .load-model-btn:hover {
@@ -216,12 +191,6 @@ st.markdown("""
     #MainMenu {visibility: hidden;}
     footer {visibility: hidden;}
     header {visibility: hidden;}
-    
-    /* Sidebar styling */
-    .css-1d391kg {
-        background: #f8fafc;
-        border-right: 1px solid #e2e8f0;
-    }
 </style>
 """, unsafe_allow_html=True)
 
@@ -277,9 +246,9 @@ def main():
     # Main converter
     st.markdown('<div class="converter-card">', unsafe_allow_html=True)
     
-    # Model status section
+    # Model loading section
     if not st.session_state.model_loaded:
-        st.markdown('<div class="model-status">', unsafe_allow_html=True)
+        st.markdown('<div class="success-message">', unsafe_allow_html=True)
         st.markdown('**Model Status:** Not Loaded', unsafe_allow_html=True)
         st.markdown('</div>', unsafe_allow_html=True)
         
