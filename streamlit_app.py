@@ -76,8 +76,7 @@ if not st.session_state.model_loaded:
 def main():
     st.markdown("""
     <div class="main-header">
-        <h1>🔤 Urdu to Roman-Urdu Translator</h1>
-        <p>Neural Machine Translation using BiLSTM Encoder + LSTM Decoder</p>
+        <h1> Urdu to Roman-Urdu Translator</h1>
     </div>
     """, unsafe_allow_html=True)
 
@@ -90,7 +89,7 @@ def main():
 
     st.write(f"Characters: {len(input_text)}")
 
-    if st.button("🚀 Translate", use_container_width=True):
+    if st.button(" Translate", use_container_width=True):
         if not st.session_state.model_loaded:
             st.warning("Model not loaded yet. Please wait or reload.")
         else:
@@ -99,7 +98,7 @@ def main():
                     result = translate_once(input_text.strip())
                     if result:
                         st.markdown(f'<div class="roman-text">{result}</div>', unsafe_allow_html=True)
-                        st.download_button("📥 Download Translation", result, "translation.txt")
+                        
                     else:
                         st.warning("Translation returned empty result.")
                 except Exception as e:
