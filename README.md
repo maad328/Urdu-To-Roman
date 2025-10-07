@@ -82,36 +82,7 @@ Content-Type: application/json
 }
 ```
 
-## Project-Structure
-
-urdu_ghazals_rekhta/
-├── backend/ # PyTorch FastAPI backend
-│ ├── api/ # FastAPI application
-│ │ └── app.py # Main API server with endpoints
-│ ├── models/ # Model definitions & checkpoints
-│ │ └── best_bilstm_seq2seq3 (7).pth # Trained model weights
-│ ├── tokenizers/ # SentencePiece tokenizers
-│ │ ├── urdu_char.model # Urdu character-level tokenizer
-│ │ └── roman_char.model # Roman character-level tokenizer
-│ ├── tests/ # Testing & inference modules
-│ │ └── test_infer_bilstm_seq2seq.py # Model inference testing
-│ └── requirements.txt # Python dependencies
-├── frontend/ # React TypeScript frontend
-│ ├── src/ # Source code
-│ │ ├── App.tsx # Main React component
-│ │ ├── App.css # Application styling
-│ │ ├── main.tsx # Application entry point
-│ │ └── index.css # Global styles
-│ ├── public/ # Static assets
-│ │ └── vite.svg # Vite logo
-│ ├── package.json # NPM dependencies and scripts
-│ ├── vite.config.ts # Vite build configuration
-│ └── tsconfig.json # TypeScript configuration
-├── notebooks/ # Jupyter notebooks
-│ └── project1_updated.ipynb # Training and experimentation notebook
-├── requirements.txt # Root project dependencies
-├── README.md # Project documentation
-└── .gitignore # Git ignore rules
+#
 
 ### Health Check
 
