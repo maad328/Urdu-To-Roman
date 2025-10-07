@@ -20,16 +20,22 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Enhanced CSS styling
+# Dark theme CSS styling to match your design
 st.markdown("""
 <style>
     /* Import Google Fonts */
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
     @import url('https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;500;600&display=swap');
     
+    /* Main page background */
+    .stApp {
+        background: linear-gradient(180deg, #1a1a2e 0%, #16213e 30%, #e91e63 100%);
+        min-height: 100vh;
+    }
+    
     /* Main container */
     .main-container {
-        max-width: 1200px;
+        max-width: 800px;
         margin: 0 auto;
         padding: 20px;
     }
@@ -37,45 +43,25 @@ st.markdown("""
     /* Header styling */
     .main-header {
         text-align: center;
-        padding: 3rem 2rem;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 2rem 0;
         color: white;
-        border-radius: 20px;
         margin-bottom: 2rem;
-        box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
-        position: relative;
-        overflow: hidden;
-    }
-    
-    .main-header::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/><circle cx="50" cy="10" r="0.5" fill="white" opacity="0.1"/><circle cx="10" cy="60" r="0.5" fill="white" opacity="0.1"/><circle cx="90" cy="40" r="0.5" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
-        opacity: 0.3;
     }
     
     .main-header h1 {
         font-family: 'Inter', sans-serif;
-        font-size: 3rem;
+        font-size: 2.5rem;
         font-weight: 700;
         margin: 0;
         text-shadow: 0 2px 4px rgba(0,0,0,0.3);
-        position: relative;
-        z-index: 1;
     }
     
     .main-header p {
         font-family: 'Inter', sans-serif;
-        font-size: 1.2rem;
+        font-size: 1rem;
         font-weight: 400;
         margin: 0.5rem 0 0 0;
         opacity: 0.9;
-        position: relative;
-        z-index: 1;
     }
     
     /* API Status */
@@ -88,8 +74,9 @@ st.markdown("""
         background: rgba(255, 255, 255, 0.1);
         border-radius: 25px;
         backdrop-filter: blur(10px);
-        position: relative;
-        z-index: 1;
+        width: fit-content;
+        margin-left: auto;
+        margin-right: auto;
     }
     
     .status-dot {
@@ -97,19 +84,8 @@ st.markdown("""
         height: 8px;
         border-radius: 50%;
         margin-right: 8px;
-        animation: pulse 2s infinite;
-    }
-    
-    .status-dot.healthy {
         background-color: #4ade80;
-    }
-    
-    .status-dot.unhealthy {
-        background-color: #f87171;
-    }
-    
-    .status-dot.unknown {
-        background-color: #fbbf24;
+        animation: pulse 2s infinite;
     }
     
     @keyframes pulse {
@@ -117,131 +93,183 @@ st.markdown("""
         50% { opacity: 0.5; }
     }
     
-    /* Input/Output sections */
-    .input-section, .output-section {
-        background: white;
+    /* Card styling */
+    .input-card, .output-card {
+        background: rgba(30, 30, 50, 0.95);
         border-radius: 15px;
         padding: 2rem;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-        border: 1px solid #e5e7eb;
         margin-bottom: 1.5rem;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
     }
     
-    .section-header {
+    .card-header {
         font-family: 'Inter', sans-serif;
-        font-size: 1.5rem;
+        font-size: 1.2rem;
         font-weight: 600;
-        color: #1f2937;
+        color: white;
         margin-bottom: 1rem;
         display: flex;
         align-items: center;
     }
     
-    .section-header::before {
-        content: '';
-        width: 4px;
-        height: 24px;
-        background: linear-gradient(135deg, #667eea, #764ba2);
-        border-radius: 2px;
-        margin-right: 12px;
+    .card-header::before {
+        content: '📄';
+        margin-right: 8px;
+        font-size: 1.1rem;
     }
     
     /* Text areas */
     .urdu-textarea {
         font-family: 'Noto Nastaliq Urdu', 'Jameel Noori Nastaleeq', serif !important;
-        font-size: 1.2rem !important;
+        font-size: 1.1rem !important;
         direction: rtl !important;
         text-align: right !important;
-        border: 2px solid #e5e7eb !important;
+        background: rgba(40, 40, 60, 0.8) !important;
+        border: 2px solid rgba(255, 255, 255, 0.2) !important;
         border-radius: 12px !important;
         padding: 1rem !important;
+        color: white !important;
         transition: all 0.3s ease !important;
+        min-height: 120px !important;
     }
     
     .urdu-textarea:focus {
-        border-color: #667eea !important;
-        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1) !important;
+        border-color: #e91e63 !important;
+        box-shadow: 0 0 0 3px rgba(233, 30, 99, 0.2) !important;
+        background: rgba(50, 50, 70, 0.9) !important;
+    }
+    
+    .urdu-textarea::placeholder {
+        color: rgba(255, 255, 255, 0.6) !important;
     }
     
     .roman-text {
         font-family: 'Inter', sans-serif;
         font-size: 1.1rem;
-        color: #1f2937;
-        background: #f8fafc;
+        color: white;
+        background: rgba(40, 40, 60, 0.8);
         padding: 1.5rem;
         border-radius: 12px;
-        border-left: 4px solid #667eea;
+        border: 2px solid rgba(255, 255, 255, 0.2);
         line-height: 1.6;
+        min-height: 120px;
     }
     
-    /* Buttons */
-    .translate-btn, .clear-btn, .copy-btn {
+    /* Labels */
+    .input-label, .output-label {
+        font-family: 'Inter', sans-serif;
+        font-weight: 500;
+        color: white;
+        margin-bottom: 0.5rem;
+        display: block;
+    }
+    
+    /* Input info */
+    .input-info {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 0.5rem;
+        font-size: 0.85rem;
+        color: rgba(255, 255, 255, 0.7);
+        font-family: 'Inter', sans-serif;
+    }
+    
+    /* Sample buttons */
+    .sample-buttons {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-top: 1rem;
+    }
+    
+    .sample-btn {
         font-family: 'Inter', sans-serif !important;
-        font-weight: 600 !important;
-        border-radius: 12px !important;
-        padding: 0.75rem 1.5rem !important;
+        font-size: 0.85rem !important;
+        padding: 0.5rem 1rem !important;
+        border-radius: 20px !important;
+        border: 2px solid rgba(233, 30, 99, 0.3) !important;
+        background: rgba(233, 30, 99, 0.1) !important;
+        color: white !important;
         transition: all 0.3s ease !important;
-        border: none !important;
         cursor: pointer !important;
+        white-space: nowrap !important;
+    }
+    
+    .sample-btn:hover {
+        border-color: #e91e63 !important;
+        background: rgba(233, 30, 99, 0.2) !important;
+        transform: translateY(-1px) !important;
+    }
+    
+    /* Action buttons */
+    .button-container {
+        display: flex;
+        gap: 1rem;
+        margin-top: 1.5rem;
     }
     
     .translate-btn {
-        background: linear-gradient(135deg, #667eea, #764ba2) !important;
+        font-family: 'Inter', sans-serif !important;
+        font-weight: 600 !important;
+        font-size: 1rem !important;
+        border-radius: 12px !important;
+        padding: 0.75rem 2rem !important;
+        transition: all 0.3s ease !important;
+        border: none !important;
+        cursor: pointer !important;
+        background: linear-gradient(135deg, #e91e63, #ad1457) !important;
         color: white !important;
+        flex: 2;
     }
     
     .translate-btn:hover {
         transform: translateY(-2px) !important;
-        box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3) !important;
+        box-shadow: 0 8px 25px rgba(233, 30, 99, 0.4) !important;
     }
     
     .translate-btn:disabled {
-        background: #9ca3af !important;
+        background: rgba(255, 255, 255, 0.2) !important;
         cursor: not-allowed !important;
         transform: none !important;
     }
     
     .clear-btn {
-        background: #f3f4f6 !important;
-        color: #6b7280 !important;
-        border: 1px solid #d1d5db !important;
+        font-family: 'Inter', sans-serif !important;
+        font-weight: 500 !important;
+        font-size: 0.9rem !important;
+        border-radius: 12px !important;
+        padding: 0.75rem 1.5rem !important;
+        transition: all 0.3s ease !important;
+        border: 2px solid rgba(255, 255, 255, 0.3) !important;
+        background: rgba(255, 255, 255, 0.1) !important;
+        color: white !important;
+        cursor: pointer !important;
+        flex: 1;
     }
     
     .clear-btn:hover {
-        background: #e5e7eb !important;
+        background: rgba(255, 255, 255, 0.2) !important;
         transform: translateY(-1px) !important;
     }
     
     .copy-btn {
-        background: #10b981 !important;
-        color: white !important;
-        font-size: 0.9rem !important;
-        padding: 0.5rem 1rem !important;
-    }
-    
-    .copy-btn:hover {
-        background: #059669 !important;
-        transform: translateY(-1px) !important;
-    }
-    
-    /* Sample buttons */
-    .sample-btn {
         font-family: 'Inter', sans-serif !important;
+        font-weight: 500 !important;
         font-size: 0.9rem !important;
+        border-radius: 8px !important;
         padding: 0.5rem 1rem !important;
-        margin: 0.25rem !important;
-        border-radius: 20px !important;
-        border: 2px solid #e5e7eb !important;
-        background: white !important;
-        color: #6b7280 !important;
         transition: all 0.3s ease !important;
+        border: 2px solid rgba(76, 175, 80, 0.3) !important;
+        background: rgba(76, 175, 80, 0.1) !important;
+        color: white !important;
         cursor: pointer !important;
     }
     
-    .sample-btn:hover {
-        border-color: #667eea !important;
-        background: #667eea !important;
-        color: white !important;
+    .copy-btn:hover {
+        background: rgba(76, 175, 80, 0.2) !important;
         transform: translateY(-1px) !important;
     }
     
@@ -250,9 +278,9 @@ st.markdown("""
         display: inline-block;
         width: 16px;
         height: 16px;
-        border: 2px solid #ffffff40;
+        border: 2px solid rgba(255, 255, 255, 0.3);
         border-radius: 50%;
-        border-top-color: #ffffff;
+        border-top-color: white;
         animation: spin 1s ease-in-out infinite;
         margin-right: 8px;
     }
@@ -263,14 +291,15 @@ st.markdown("""
     
     /* Error banner */
     .error-banner {
-        background: #fef2f2;
-        border: 1px solid #fecaca;
+        background: rgba(244, 67, 54, 0.1);
+        border: 1px solid rgba(244, 67, 54, 0.3);
         border-radius: 12px;
         padding: 1rem;
         margin: 1rem 0;
         display: flex;
         align-items: center;
         justify-content: space-between;
+        color: #ffcdd2;
     }
     
     .error-icon {
@@ -283,31 +312,26 @@ st.markdown("""
         border: none;
         font-size: 1.5rem;
         cursor: pointer;
-        color: #dc2626;
+        color: #ffcdd2;
     }
     
-    /* Input info */
-    .input-info {
+    /* Output section styling */
+    .output-header {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-top: 0.5rem;
-        font-size: 0.9rem;
-        color: #6b7280;
+        margin-bottom: 0.5rem;
     }
     
-    /* Footer */
-    .app-footer {
-        text-align: center;
-        color: #6b7280;
-        padding: 2rem 0;
-        margin-top: 3rem;
-        border-top: 1px solid #e5e7eb;
-    }
+    /* Hide Streamlit default elements */
+    #MainMenu {visibility: hidden;}
+    footer {visibility: hidden;}
+    header {visibility: hidden;}
     
     /* Sidebar styling */
     .css-1d391kg {
-        background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+        background: rgba(20, 20, 40, 0.95);
+        border-right: 1px solid rgba(255, 255, 255, 0.1);
     }
     
     /* Responsive design */
@@ -316,19 +340,18 @@ st.markdown("""
             font-size: 2rem;
         }
         
-        .main-header p {
-            font-size: 1rem;
-        }
-        
-        .input-section, .output-section {
+        .input-card, .output-card {
             padding: 1.5rem;
         }
+        
+        .sample-buttons {
+            flex-direction: column;
+        }
+        
+        .button-container {
+            flex-direction: column;
+        }
     }
-    
-    /* Hide Streamlit default elements */
-    #MainMenu {visibility: hidden;}
-    footer {visibility: hidden;}
-    header {visibility: hidden;}
 </style>
 """, unsafe_allow_html=True)
 
@@ -346,13 +369,11 @@ if 'error' not in st.session_state:
 
 # Sample texts
 SAMPLE_TEXTS = [
-    "کس کی نمود کے لیے شام و سحر ہیں گرم",
-    "دل سے نکلے ہیں جو لفظ اثر رکھتے ہیں",
-    "محبت کرنے والے کم نہیں",
-    "یہ ایک خوبصورت دن ہے",
     "زندگی ایک سفر ہے",
-    "اردو زبان بہت خوبصورت ہے",
-    "شاعری دل کی آواز ہے"
+    "یہ ایک خوبصورت دن ہے", 
+    "محبت کرنے والے کم نہیں",
+    "دل سے نکلے ہیں جو لفظ اثر رکھتے ہیں",
+    "کس کی نمود کے لیے شام و سحر ہیں گرم"
 ]
 
 def load_model():
@@ -403,8 +424,8 @@ def main():
         <p>Neural Machine Translation using BiLSTM Encoder + LSTM Decoder</p>
         
         <div class="api-status">
-            <span class="status-dot healthy"></span>
-            <span>API: Connected</span>
+            <span class="status-dot"></span>
+            <span>API: Connected (cpu)</span>
         </div>
     </div>
     """, unsafe_allow_html=True)
@@ -426,78 +447,77 @@ def main():
                 st.markdown(f"**Architecture:** {info.get('model_architecture', 'N/A')}")
                 st.markdown(f"**Parameters:** {info.get('total_parameters', 0):,}")
                 st.markdown(f"**Device:** {info.get('device', 'N/A')}")
-        
-        st.markdown("### 📝 Quick Test Samples")
-        for i, sample in enumerate(SAMPLE_TEXTS):
-            if st.button(f"Sample {i+1}", key=f"sample_{i}", use_container_width=True):
-                load_sample_text(sample)
-                st.rerun()
 
-    # Main content
-    col1, col2 = st.columns([1, 1], gap="large")
-
+    # Input Section
+    st.markdown('<div class="input-card">', unsafe_allow_html=True)
+    st.markdown('<div class="card-header">Input Text</div>', unsafe_allow_html=True)
+    
+    st.markdown('<span class="input-label">Enter Urdu Text:</span>', unsafe_allow_html=True)
+    input_text = st.text_area(
+        "",
+        value=st.session_state.input_text,
+        height=120,
+        placeholder="یہاں اردو متن لکھیں... (Type your Urdu text here)",
+        key="input_textarea",
+        help="Type your Urdu text here"
+    )
+    
+    st.session_state.input_text = input_text
+    
+    st.markdown(f"""
+    <div class="input-info">
+        <span>Characters: {len(input_text)}</span>
+        <span>Click Translate or press Ctrl+Enter</span>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    # Sample buttons
+    st.markdown('<div class="sample-buttons">', unsafe_allow_html=True)
+    for i, sample in enumerate(SAMPLE_TEXTS):
+        if st.button(sample, key=f"sample_{i}"):
+            load_sample_text(sample)
+            st.rerun()
+    st.markdown('</div>', unsafe_allow_html=True)
+    
+    # Action buttons
+    st.markdown('<div class="button-container">', unsafe_allow_html=True)
+    col1, col2 = st.columns([2, 1])
+    
     with col1:
-        st.markdown('<div class="input-section">', unsafe_allow_html=True)
-        st.markdown('<div class="section-header">📝 Input Text</div>', unsafe_allow_html=True)
-        
-        st.markdown("**Enter Urdu Text:**")
-        input_text = st.text_area(
-            "",
-            value=st.session_state.input_text,
-            height=200,
-            placeholder="یہاں اردو متن لکھیں... (Type your Urdu text here)",
-            key="input_textarea",
-            help="Type your Urdu text here"
-        )
-        
-        st.session_state.input_text = input_text
-        
-        st.markdown(f"""
-        <div class="input-info">
-            <span>Characters: {len(input_text)}</span>
-            <span>Click Translate or press Ctrl+Enter</span>
-        </div>
-        """, unsafe_allow_html=True)
-        
-        col1_1, col1_2 = st.columns([2, 1])
-        with col1_1:
-            if st.button("🚀 Translate", key="translate_btn", use_container_width=True, 
-                        disabled=not st.session_state.model_loaded or not input_text.strip()):
-                handle_translate()
-                st.rerun()
-        
-        with col1_2:
-            if st.button("🗑️ Clear", key="clear_btn", use_container_width=True):
-                clear_all()
-                st.rerun()
-        
-        st.markdown('</div>', unsafe_allow_html=True)
-
+        if st.button("🚀 TRANSLATE", key="translate_btn", use_container_width=True, 
+                    disabled=not st.session_state.model_loaded or not input_text.strip()):
+            handle_translate()
+            st.rerun()
+    
     with col2:
-        st.markdown('<div class="output-section">', unsafe_allow_html=True)
-        st.markdown('<div class="section-header">📊 Translation Result</div>', unsafe_allow_html=True)
+        if st.button("CLEAR", key="clear_btn", use_container_width=True):
+            clear_all()
+            st.rerun()
+    
+    st.markdown('</div>', unsafe_allow_html=True)
+    st.markdown('</div>', unsafe_allow_html=True)
+
+    # Output Section
+    if st.session_state.output_text:
+        st.markdown('<div class="output-card">', unsafe_allow_html=True)
+        st.markdown('<div class="card-header">Translation Result</div>', unsafe_allow_html=True)
         
-        if st.session_state.output_text:
-            st.markdown("**Roman-Urdu Output:**")
-            
-            col2_1, col2_2 = st.columns([3, 1])
-            with col2_1:
-                st.markdown(f'<div class="roman-text">{st.session_state.output_text}</div>', unsafe_allow_html=True)
-            with col2_2:
-                if st.button("📋 Copy", key="copy_btn", use_container_width=True):
-                    st.write("Copied to clipboard!")
-            
-            st.code(st.session_state.output_text, language=None)
-            
-            st.download_button(
-                label="📥 Download Translation",
-                data=st.session_state.output_text,
-                file_name="translation.txt",
-                mime="text/plain",
-                use_container_width=True
-            )
-        else:
-            st.info("Enter Urdu text and click Translate to see the result")
+        st.markdown('<span class="output-label">Roman-Urdu Output:</span>', unsafe_allow_html=True)
+        
+        col1, col2 = st.columns([3, 1])
+        with col1:
+            st.markdown(f'<div class="roman-text">{st.session_state.output_text}</div>', unsafe_allow_html=True)
+        with col2:
+            if st.button("📋 Copy", key="copy_btn", use_container_width=True):
+                st.write("Copied to clipboard!")
+        
+        st.download_button(
+            label="📥 Download Translation",
+            data=st.session_state.output_text,
+            file_name="translation.txt",
+            mime="text/plain",
+            use_container_width=True
+        )
         
         st.markdown('</div>', unsafe_allow_html=True)
 
@@ -512,16 +532,6 @@ def main():
             <button class="error-close" onclick="this.parentElement.style.display='none'">×</button>
         </div>
         """, unsafe_allow_html=True)
-
-    # Footer
-    st.markdown("""
-    <div class="app-footer">
-        <p>
-            Built with ❤️ using React + TypeScript + FastAPI + PyTorch<br>
-            Assignment: Neural Machine Translation (BiLSTM Encoder + LSTM Decoder)
-        </p>
-    </div>
-    """, unsafe_allow_html=True)
 
 if __name__ == "__main__":
     main()
